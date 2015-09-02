@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.plackemacher.rxreceiver.RxReceiver;
@@ -44,8 +45,28 @@ public class MainActivity extends Activity {
                 .subscribe(new Action1<Intent>() {
                     @Override
                     public void call(Intent intent) {
-                        boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, true);
-                        mTextView.setText(Boolean.toString(noConnectivity));
+                        Log.v("MainActivity", "Intent: " + intent.getExtras());
+                        int networkType = intent.getIntExtra(ConnectivityManager.EXTRA_NETWORK_TYPE, -1);
+
+                        String type;
+                        switch (networkType) {
+                            case ConnectivityManager.TYPE_MOBILE:
+                                type = "Mobile";
+                                break;
+                            case ConnectivityManager.TYPE_MOBILE_DUN:
+                                type = "Mobile DUN";
+                                break;
+                            case ConnectivityManager.TYPE_WIFI:
+                                type = "WiFi";
+                                break;
+                            case ConnectivityManager.TYPE_WIMAX:
+                                type = "Wimax";
+                                break;
+                            default:
+                                type = "Unknown";
+                                break;
+                        }
+                        mTextView.setText(type);
                     }
                 });
     }
