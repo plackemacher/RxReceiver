@@ -1,1 +1,1 @@
-include ':rxreceiver', ':rxreceiver-sample'
+include ':rxreceiver', ':rxreceiver-extensions', ':rxreceiver-sample'
