@@ -1,20 +1,24 @@
 language: android
 
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
 android:
   components:
-    - build-tools-23.0.0
+    - build-tools-23.0.3
     - android-23
     - extra-android-m2repository
-
-jdk: oraclejdk8
 
 notifications:
   email: false
 
 sudo: false
 
+# cache between builds
 cache:
   directories:
-    - $HOME/.gradle
+  - $HOME/.m2
+  - $HOME/.gradle
 
 script: ./gradlew build test
